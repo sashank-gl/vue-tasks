@@ -20,8 +20,9 @@ const addTask = (task) => {
   <main>
     <h1 class="text-center text-xl font-bold text-primary">Create a Task</h1>
     <CreateTask @new-task="addTask" />
-    <ul>
-      <Task v-for="task in allTasks" :task="task"/>
+    <ul v-if="allTasks.length > 0">
+      <Task v-for="task in allTasks" :task="task" />
     </ul>
+    <p v-else>No Tasks</p>
   </main>
 </template>
