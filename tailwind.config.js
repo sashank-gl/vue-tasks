@@ -1,6 +1,9 @@
 export default {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
+    fontFamily: {
+      nunito: ["Nunito"],
+    },
     extend: {
       colors: {
         alt: "#FFFFFF",
@@ -10,5 +13,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };

@@ -1,14 +1,27 @@
 <script setup>
-import { RouterLink } from 'vue-router';
-
+import {
+  ArrowLeftStartOnRectangleIcon,
+  InformationCircleIcon,
+} from "@heroicons/vue/24/solid";
+import { RouterLink } from "vue-router";
 </script>
+
 <template>
-    <header>
-        <nav class="flex items-center justify-between">
-            <img class="size-20" src="../assets/to-do.png" alt="VueToDo Logo" />
-            <ul class="flex pr-6 gap-4">
-                <RouterLink to="/">Home</RouterLink>
-            </ul>
-        </nav>
-    </header>
+  <div class="flex items-center justify-between">
+    <h1
+      class="flex items-center justify-center bg-gradient-to-br from-primary from-45% to-secondary bg-clip-text text-center text-3xl font-semibold text-transparent"
+    >
+      taskvue
+    </h1>
+    <div class="flex gap-3">
+      <RouterLink to="/info"
+        ><InformationCircleIcon
+          class="size-6 text-primary hover:text-secondary xl:size-8"
+      /></RouterLink>
+      <RouterLink to="/"
+        ><ArrowLeftStartOnRectangleIcon
+          class="size-6 text-primary hover:text-secondary xl:size-8"
+      /></RouterLink>
+    </div>
+  </div>
 </template>

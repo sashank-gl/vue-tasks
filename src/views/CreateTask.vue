@@ -1,33 +1,42 @@
 <script setup>
 import { ref } from "vue";
+import { PlusIcon } from "@heroicons/vue/24/solid";
+import { useTasksStore } from "@/stores/tasksStore";
 
 const task = ref("");
-const hasError = ref(false);
-
-const emit = defineEmits(["new-task"]);
+const isTaskEmpty = ref(false);
+const tasksStore = useTasksStore();
 
 const createTask = () => {
   if (task.value !== "") {
-    emit("new-task", task.value);
+    tasksStore.addTask(task.value);
     task.value = "";
-    hasError.value = false;
+    isTaskEmpty.value = false;
   } else {
-    hasError.value = true
+    isTaskEmpty.value = true;
     setTimeout(() => {
-      hasError.value = false;
+      isTaskEmpty.value = false;
     }, 2000);
   }
 };
 </script>
 
 <template>
-  <div class="container mx-auto">
-    <input
-      class="border focus:outline-none focus:border-primary focus:border-2"
-      v-model="task"
-      type="text"
-    />
-    <button @click="createTask">Create</button>
+  <div class="fixed bottom-24 left-6 right-6 z-10">
+    <div v-show="isTaskEmpty">Task cannot be empty</div>
+    <div class="flex w-auto items-center gap-4">
+      <input
+        class="h-12 flex-grow rounded-full border-2 border-primary px-4 focus:shadow-md focus:shadow-primary focus:outline-none"
+        v-model="task"
+        type="text"
+        @keyup.enter="createTask"
+      />
+      <button
+        class="rounded-full bg-primary p-2 hover:bg-secondary"
+        @click="createTask"
+      >
+        <PlusIcon class="size-8 text-alt" />
+      </button>
+    </div>
   </div>
-  <div v-show="hasError">Task cannot be empty</div>
 </template>
