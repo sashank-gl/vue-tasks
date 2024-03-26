@@ -26,7 +26,7 @@ const login = () => {
 
 onMounted(() => {
   userStore.fetchUserName();
-});
+ });
 </script>
 
 <template>
