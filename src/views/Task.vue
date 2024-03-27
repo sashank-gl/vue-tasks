@@ -1,41 +1,8 @@
-<script setup>
-import { ref, watch } from "vue";
-import {
-  PencilIcon,
-  TrashIcon,
-  CheckIcon,
-  XMarkIcon,
-  CheckCircleIcon,
-  ArrowUturnLeftIcon,
-} from "@heroicons/vue/24/solid";
-import { useTasksStore } from "@/stores/tasksStore";
-
-const isConfirmationPending = ref(false);
-const tasksStore = useTasksStore();
-const props = defineProps({
-  task: {
-    type: Object,
-    required: true,
-  },
-});
-
-const editedTask = ref(props.task.task);
-
-watch(
-  tasksStore.tasks,
-  () => {
-    tasksStore.saveTasks();
-    tasksStore.fetchTasks();
-  },
-  { deep: true },
-);
-</script>
-
 <template>
-  <Transition>
-    <div
-      class="group flex h-14 w-full items-center gap-2 rounded-lg bg-primary/40 px-4 hover:bg-primary/50"
-    >
+
+<Transition>
+    <div class="group flex h-14 w-full items-center gap-2 rounded-lg bg-primary/40 px-4 hover:bg-primary/50" >
+
       <!-- Checkbox -->
 
       <label class="flex w-1/12 cursor-pointer items-center">
@@ -45,9 +12,7 @@ watch(
           @input="tasksStore.toggleTaskCompletion(task.id)"
           class="hidden"
         />
-        <div
-          class="flex size-6 items-center justify-center rounded-full border-2 border-primary"
-        >
+        <div class="flex size-6 items-center justify-center rounded-full border-2 border-primary">
           <CheckCircleIcon
             v-if="task.isCompleted"
             class="pointer-events-none text-primary"
@@ -113,6 +78,7 @@ watch(
           @click="tasksStore.editTask(task.id)"
           class="size-6 cursor-pointer transition-all duration-150 hover:scale-125"
         />
+
         <TrashIcon
           v-if="isConfirmationPending === false"
           @click="isConfirmationPending = true"
@@ -135,6 +101,41 @@ watch(
             class="size-6 cursor-pointer transition-all duration-150 hover:scale-90"
           />
         </div>
-      </div></div
-  ></Transition>
+      </div>
+    </div>
+</Transition>
 </template>
+
+<script setup>
+import { ref, watch } from "vue";
+import { useTasksStore } from "@/stores/tasksStore";
+import {
+  PencilIcon,
+  TrashIcon,
+  CheckIcon,
+  XMarkIcon,
+  CheckCircleIcon,
+  ArrowUturnLeftIcon,
+} from "@heroicons/vue/24/solid";
+
+const isConfirmationPending = ref(false);
+const tasksStore = useTasksStore();
+
+const props = defineProps({
+  task: {
+    type: Object,
+    required: true,
+  },
+});
+
+const editedTask = ref(props.task.task);
+
+watch(
+  tasksStore.tasks,
+  () => {
+    tasksStore.saveTasks();
+    tasksStore.fetchTasks();
+  },
+  { deep: true },
+);
+</script>
